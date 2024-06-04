@@ -11,8 +11,36 @@ export const router = createBrowserRouter([
         element: <ComingSoonPage />,
       },
       {
-        path: '/login',
+        path: 'login',
         element: <LoginPage />,
+      },
+      {
+        path: 'profil',
+        element: <ComingSoonPage />,
+      },
+      {
+        path: 'berita-sekolah',
+        element: <ComingSoonPage />,
+      },
+      {
+        path: 'pengumuman',
+        element: <ComingSoonPage />,
+      },
+      {
+        path: 'mading',
+        element: <ComingSoonPage />,
+      },
+      {
+        path: 'agenda-sekolah',
+        element: <ComingSoonPage />,
+      },
+      {
+        path: 'galeri',
+        element: <ComingSoonPage />,
+      },
+      {
+        path: 'kontak',
+        element: <ComingSoonPage />,
       },
     ],
   },
