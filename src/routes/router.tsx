@@ -1,5 +1,5 @@
 import { createBrowserRouter } from 'react-router-dom'
-import { ComingSoonPage, LoginPage, RootLayout } from './loadables'
+import { BerandaPage, ComingSoonPage, LoginPage, RootLayout } from './loadables'
 
 export const router = createBrowserRouter([
   {
@@ -8,7 +8,7 @@ export const router = createBrowserRouter([
     children: [
       {
         path: '',
-        element: <ComingSoonPage />,
+        element: <BerandaPage />,
       },
       {
         path: 'login',

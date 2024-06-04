@@ -7,9 +7,14 @@ import { RootFooter } from './root-footer'
 import { Link, Outlet } from 'react-router-dom'
 import { convertToSlug } from '@/libs/helpers/format-text'
 import { RootContentHeader } from './root-content-header'
+import clsx from 'clsx'
+import { usePathname } from '@/libs/hooks/usePathname'
 
 export function RootMain() {
   const [isShow, setIsShow] = useState<boolean>(false)
+  const { firstPathname } = usePathname()
+
+  const contentWithoutGap = ['', 'Profil']
 
   return (
     <div className="flex h-full w-full flex-col">
@@ -78,7 +83,14 @@ export function RootMain() {
           <div className="phones:hidden">
             <RootNavigasi />
           </div>
-          <div className="scrollbar mt-32 flex h-full flex-1 flex-col gap-32 overflow-y-auto phones:gap-24">
+          <div
+            className={clsx(
+              'scrollbar flex h-full flex-1 flex-col gap-32 overflow-y-auto phones:gap-24',
+              {
+                'mt-32': !contentWithoutGap.includes(firstPathname),
+              },
+            )}
+          >
             {/* --- Content --- */}
             <div className="flex min-h-[96%] flex-1 flex-col phones:min-h-[98%]">
               <RootContentHeader />
