@@ -81,7 +81,7 @@ export default {
 
       // ? ----- COLOR SYSTEM
       colors: {
-        background: '#f0f0f0',
+        background: '#fff',
         primary: {
           DEFAULT: '#28A6F4',
           background: '#0891E6',
@@ -115,6 +115,7 @@ export default {
         },
         success: {
           DEFAULT: '#5cb85c',
+          100: '#C4F5CF',
           700: '#3B9A13',
           tint: { 1: '#568500', 2: '#D6F9D5' },
           shade: { 1: '#2B4200' },
