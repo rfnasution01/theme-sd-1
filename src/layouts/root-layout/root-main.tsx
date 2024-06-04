@@ -4,7 +4,9 @@ import { RootNavigasi } from './root-navigasi'
 import { ListHeader, ListNavigasi } from '@/libs/dummy/list-navigasi'
 import { DoorClosed, DoorOpen, Search } from 'lucide-react'
 import { RootFooter } from './root-footer'
-import { Outlet } from 'react-router-dom'
+import { Link, Outlet } from 'react-router-dom'
+import { convertToSlug } from '@/libs/helpers/format-text'
+import { RootContentHeader } from './root-content-header'
 
 export function RootMain() {
   const [isShow, setIsShow] = useState<boolean>(false)
@@ -18,14 +20,28 @@ export function RootMain() {
         <div className="flex h-full w-full flex-col gap-48 bg-primary-700 p-32 text-primary-100">
           <div className="flex flex-col gap-16">
             {ListNavigasi?.map((item, idx) => (
-              <div className="" key={idx}>
+              <Link
+                to={item === 'Beranda' ? '/' : `/${convertToSlug(item)}`}
+                className=""
+                key={idx}
+                onClick={() => {
+                  setIsShow(false)
+                }}
+              >
                 {item}
-              </div>
+              </Link>
             ))}
             {ListHeader?.map((item, idx) => (
-              <div className="" key={idx}>
+              <Link
+                to={`/${convertToSlug(item)}`}
+                className=""
+                key={idx}
+                onClick={() => {
+                  setIsShow(false)
+                }}
+              >
                 {item}
-              </div>
+              </Link>
             ))}
             <div className="relative w-full text-black">
               <span className="">
@@ -64,7 +80,8 @@ export function RootMain() {
           </div>
           <div className="scrollbar mt-32 flex h-full flex-1 flex-col gap-32 overflow-y-auto phones:gap-24">
             {/* --- Content --- */}
-            <div className="flex min-h-[96%] flex-1 phones:min-h-[98%]">
+            <div className="flex min-h-[96%] flex-1 flex-col phones:min-h-[98%]">
+              <RootContentHeader />
               <Outlet />
             </div>
             {/* --- Footer --- */}

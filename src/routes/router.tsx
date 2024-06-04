@@ -42,6 +42,18 @@ export const router = createBrowserRouter([
         path: 'kontak',
         element: <ComingSoonPage />,
       },
+      {
+        path: 'faq',
+        element: <ComingSoonPage />,
+      },
+      {
+        path: 'direktori',
+        element: <ComingSoonPage />,
+      },
+      {
+        path: 'downloads',
+        element: <ComingSoonPage />,
+      },
     ],
   },
 

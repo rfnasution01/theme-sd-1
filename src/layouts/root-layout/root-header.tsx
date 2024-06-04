@@ -3,6 +3,10 @@ import { BeritaUtama } from './berita-utama'
 import { LayoutDashboard, Search, X } from 'lucide-react'
 import { Dispatch, SetStateAction } from 'react'
 import { ListHeader } from '@/libs/dummy/list-navigasi'
+import { Link } from 'react-router-dom'
+import { convertToSlug } from '@/libs/helpers/format-text'
+import { usePathname } from '@/libs/hooks/usePathname'
+import clsx from 'clsx'
 
 export function RootHeader({
   setIsShow,
@@ -11,8 +15,16 @@ export function RootHeader({
   setIsShow: Dispatch<SetStateAction<boolean>>
   isShow: boolean
 }) {
+  const { firstPathname } = usePathname()
   const runningText =
     'Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus maxime facilis ea itaque et quae! Rerum maiores quasi consequatur natus eveniet, quos debitis. Temporibus sint labore ut officia totam dolor.'
+
+  const isActivePage = (item: string) => {
+    if (item?.toLocaleLowerCase() === firstPathname) {
+      return true
+    }
+    return false
+  }
 
   return (
     <div className="flex items-center gap-32 bg-primary-500 px-64 py-16 text-primary-100 phones:px-32">
@@ -24,12 +36,18 @@ export function RootHeader({
       {/* --- Navigasi --- */}
       <div className="flex w-1/5 items-center justify-center gap-24 text-[2rem] phones:hidden phones:text-[2.4rem]">
         {ListHeader.map((item, idx) => (
-          <div
-            className="text-success-100 font-light hover:cursor-pointer hover:text-success-700"
+          <Link
+            to={convertToSlug(item)}
+            className={clsx(
+              'text-success-100 font-light hover:cursor-pointer hover:text-success-700',
+              {
+                'text-success-700': isActivePage(convertToSlug(item)),
+              },
+            )}
             key={idx}
           >
             {item}
-          </div>
+          </Link>
         ))}
       </div>
       <div className="relative w-1/5 text-black phones:hidden">
