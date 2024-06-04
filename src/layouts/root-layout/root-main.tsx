@@ -3,6 +3,8 @@ import { RootHeader } from './root-header'
 import { RootNavigasi } from './root-navigasi'
 import { ListHeader, ListNavigasi } from '@/libs/dummy/list-navigasi'
 import { DoorClosed, DoorOpen, Search } from 'lucide-react'
+import { RootFooter } from './root-footer'
+import { Outlet } from 'react-router-dom'
 
 export function RootMain() {
   const [isShow, setIsShow] = useState<boolean>(false)
@@ -60,11 +62,13 @@ export function RootMain() {
           <div className="phones:hidden">
             <RootNavigasi />
           </div>
-          <div className="scrollbar mt-32 flex h-full flex-1 flex-col gap-32 overflow-y-auto bg-green-200 phones:gap-24">
+          <div className="scrollbar mt-32 flex h-full flex-1 flex-col gap-32 overflow-y-auto phones:gap-24">
             {/* --- Content --- */}
-            <div className="flex h-full flex-1 bg-red-300">Tes</div>
+            <div className="flex min-h-[96%] flex-1 phones:min-h-[98%]">
+              <Outlet />
+            </div>
             {/* --- Footer --- */}
-            <div className="flex bg-red-300">Tes</div>
+            <RootFooter />
           </div>
         </>
       )}
