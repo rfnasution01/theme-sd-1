@@ -8,6 +8,7 @@ import clsx from 'clsx'
 import { MenuType } from '@/libs/types/beranda-type'
 import { useGetMenuTopQuery } from '@/store/slices/berandaAPI'
 import Loading from '@/components/Loading'
+import { enumRoute } from '@/libs/enum/enum-route'
 
 export function RootHeader({
   setIsShow,
@@ -17,7 +18,7 @@ export function RootHeader({
   isShow: boolean
 }) {
   const { firstPathname } = usePathname()
-  // --- Header ---
+  // --- Menu Top ---
   const [menuTop, setMenuTop] = useState<MenuType[]>([])
   const {
     data: menuTopData,
@@ -43,6 +44,10 @@ export function RootHeader({
     return false
   }
 
+  const sortedData = [...menuTop].sort((a, b) => {
+    return parseInt(a.urutan) - parseInt(b.urutan)
+  })
+
   return (
     <div className="flex items-center gap-32 bg-primary-500 px-64 py-16 text-primary-100 phones:px-32">
       {/* --- Running Text --- */}
@@ -55,9 +60,30 @@ export function RootHeader({
         {loading ? (
           <Loading />
         ) : (
-          menuTop?.slice(0, 3)?.map((item, idx) => (
+          sortedData?.slice(0, 3)?.map((item, idx) => (
             <Link
-              to={item?.slug}
+              to={
+                item?.nama_menu === 'Home'
+                  ? '/'
+                  : item?.jenis_menu === enumRoute.ROUTE
+                    ? item?.slug
+                    : item?.jenis_menu === enumRoute.HALAMAN
+                      ? `/halaman?page=${item?.slug}`
+                      : item?.jenis_menu === enumRoute.PROGRAM
+                        ? `/program-details?page=${item?.slug}`
+                        : item?.jenis_menu === enumRoute.BERITA
+                          ? `/berita`
+                          : item?.jenis_menu === enumRoute.AGENDA
+                            ? `/agenda`
+                            : item?.jenis_menu === enumRoute.PENGUMUMAN
+                              ? `/pengumuman`
+                              : item?.jenis_menu === enumRoute.PRESTASI
+                                ? `/prestasi`
+                                : item?.jenis_menu === enumRoute.URL
+                                  ? item?.id_konten
+                                  : item?.slug
+              }
+              target={item?.jenis_menu === enumRoute.URL ? '_blank' : '_self'}
               className={clsx(
                 'text-success-100 font-light hover:cursor-pointer hover:text-success-700',
                 {
