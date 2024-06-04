@@ -1,5 +1,4 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-import Cookies from 'js-cookie'
 
 export type Meta = {
   page?: number
@@ -18,12 +17,13 @@ export type Res<T, M = undefined> = {
 }
 
 const baseURL = import.meta.env.VITE_BASE_URL
+const baseToken = import.meta.env.VITE_BASE_TOKEN
 
 export const api = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: baseURL,
     prepareHeaders: (headers) => {
-      const token = Cookies.get('token')
+      const token = baseToken
       if (token) {
         headers.set('authorization', `Bearer ${token}`)
       }

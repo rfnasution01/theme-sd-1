@@ -92,7 +92,7 @@ export function RootMain() {
             )}
           >
             {/* --- Content --- */}
-            <div className="flex min-h-[96%] flex-1 flex-col phones:min-h-[98%]">
+            <div className="flex flex-col">
               <RootContentHeader />
               <Outlet />
             </div>
