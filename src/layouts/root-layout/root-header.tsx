@@ -1,12 +1,13 @@
 import { RunningText } from '@/components/RunningText'
 import { BeritaUtama } from './berita-utama'
 import { LayoutDashboard, Search, X } from 'lucide-react'
-import { Dispatch, SetStateAction } from 'react'
-import { ListHeader } from '@/libs/dummy/list-navigasi'
+import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { convertToSlug } from '@/libs/helpers/format-text'
 import { usePathname } from '@/libs/hooks/usePathname'
 import clsx from 'clsx'
+import { MenuType } from '@/libs/types/beranda-type'
+import { useGetMenuTopQuery } from '@/store/slices/berandaAPI'
+import Loading from '@/components/Loading'
 
 export function RootHeader({
   setIsShow,
@@ -16,6 +17,22 @@ export function RootHeader({
   isShow: boolean
 }) {
   const { firstPathname } = usePathname()
+  // --- Header ---
+  const [menuTop, setMenuTop] = useState<MenuType[]>([])
+  const {
+    data: menuTopData,
+    isLoading: isLoadingMenuTop,
+    isFetching: isFetchingMenuTop,
+  } = useGetMenuTopQuery()
+
+  const loading = isLoadingMenuTop || isFetchingMenuTop
+
+  useEffect(() => {
+    if (menuTopData?.data) {
+      setMenuTop(menuTopData?.data)
+    }
+  }, [menuTopData?.data])
+
   const runningText =
     'Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus maxime facilis ea itaque et quae! Rerum maiores quasi consequatur natus eveniet, quos debitis. Temporibus sint labore ut officia totam dolor.'
 
@@ -29,28 +46,32 @@ export function RootHeader({
   return (
     <div className="flex items-center gap-32 bg-primary-500 px-64 py-16 text-primary-100 phones:px-32">
       {/* --- Running Text --- */}
-      <div className="flex w-3/5 items-center gap-32 phones:flex-1">
+      <div className="flex w-3/6 items-center gap-32 phones:flex-1">
         <BeritaUtama />
         <RunningText>{runningText}</RunningText>
       </div>
       {/* --- Navigasi --- */}
-      <div className="flex w-1/5 items-center justify-center gap-24 text-[2rem] phones:hidden phones:text-[2.4rem]">
-        {ListHeader.map((item, idx) => (
-          <Link
-            to={convertToSlug(item)}
-            className={clsx(
-              'text-success-100 font-light hover:cursor-pointer hover:text-success-700',
-              {
-                'text-success-700': isActivePage(convertToSlug(item)),
-              },
-            )}
-            key={idx}
-          >
-            {item}
-          </Link>
-        ))}
+      <div className="flex w-2/6 items-center justify-center gap-24 text-[2rem] phones:hidden phones:text-[2.4rem]">
+        {loading ? (
+          <Loading />
+        ) : (
+          menuTop?.slice(0, 3)?.map((item, idx) => (
+            <Link
+              to={item?.slug}
+              className={clsx(
+                'text-success-100 font-light hover:cursor-pointer hover:text-success-700',
+                {
+                  'text-success-700': isActivePage(item?.slug),
+                },
+              )}
+              key={idx}
+            >
+              {item?.nama_menu}
+            </Link>
+          ))
+        )}
       </div>
-      <div className="relative w-1/5 text-black phones:hidden">
+      <div className="relative w-1/6 text-black phones:hidden">
         <span className="block phones:hidden">
           <Search
             className="absolute left-12 top-1/2 -translate-y-1/2 transform"

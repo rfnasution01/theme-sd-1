@@ -25,10 +25,10 @@ export function RootFooter() {
               </p>
             </div>
             <div className="flex items-center gap-8">
-              <img src="/svg/facebook.svg" alt="facebook" />
-              <img src="/svg/google.svg" alt="google" />
-              <img src="/svg/youtube.svg" alt="youtube" />
-              <img src="/svg/instagram.svg" alt="instagram" />
+              <img src="/icon/facebook.svg" alt="facebook" />
+              <img src="/icon/google.svg" alt="google" />
+              <img src="/icon/youtube.svg" alt="youtube" />
+              <img src="/icon/instagram.svg" alt="instagram" />
             </div>
           </div>
         </div>
