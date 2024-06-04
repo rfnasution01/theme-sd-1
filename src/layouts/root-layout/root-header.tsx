@@ -2,6 +2,7 @@ import { RunningText } from '@/components/RunningText'
 import { BeritaUtama } from './berita-utama'
 import { LayoutDashboard, Search, X } from 'lucide-react'
 import { Dispatch, SetStateAction } from 'react'
+import { ListHeader } from '@/libs/dummy/list-navigasi'
 
 export function RootHeader({
   setIsShow,
@@ -14,7 +15,7 @@ export function RootHeader({
     'Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus maxime facilis ea itaque et quae! Rerum maiores quasi consequatur natus eveniet, quos debitis. Temporibus sint labore ut officia totam dolor.'
 
   return (
-    <div className="flex items-center gap-32 bg-primary-500 px-64 py-24 text-primary-100 phones:px-32">
+    <div className="flex items-center gap-32 bg-primary-500 px-64 py-16 text-primary-100 phones:px-32">
       {/* --- Running Text --- */}
       <div className="flex w-3/5 items-center gap-32 phones:flex-1">
         <BeritaUtama />
@@ -22,7 +23,7 @@ export function RootHeader({
       </div>
       {/* --- Navigasi --- */}
       <div className="flex w-1/5 items-center justify-center gap-24 text-[2rem] phones:hidden phones:text-[2.4rem]">
-        {['F.A.Q', 'Direktori', 'Downloads'].map((item, idx) => (
+        {ListHeader.map((item, idx) => (
           <div
             className="text-success-100 font-light hover:cursor-pointer hover:text-success-700"
             key={idx}
