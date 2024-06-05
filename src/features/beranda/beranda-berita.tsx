@@ -3,6 +3,7 @@ import { BerandaType } from '@/libs/types/beranda-type'
 import { useGetBerandaQuery } from '@/store/slices/berandaAPI'
 import { useEffect, useState } from 'react'
 import { ShowCard } from './berita-card'
+import { NoData } from '@/components/NoData'
 
 export function BerandaBerita() {
   const [beranda, setBeranda] = useState<BerandaType[]>([])
@@ -22,11 +23,15 @@ export function BerandaBerita() {
         <Loading />
       ) : (
         <div className="flex flex-col gap-32">
-          {beranda?.map((item, idx) => (
-            <div key={idx} className="flex flex-col gap-32">
-              <ShowCard angka={idx} data={item} />{' '}
-            </div>
-          ))}
+          {beranda?.length > 0 ? (
+            beranda?.map((item, idx) => (
+              <div key={idx} className="flex flex-col gap-32">
+                <ShowCard angka={idx} data={item} />{' '}
+              </div>
+            ))
+          ) : (
+            <NoData />
+          )}
         </div>
       )}
     </div>
