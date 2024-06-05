@@ -6,6 +6,7 @@ import {
   LoginPage,
   ProgramLayout,
   RootLayout,
+  TentangKamiPage,
 } from './loadables'
 
 export const router = createBrowserRouter([
@@ -23,7 +24,7 @@ export const router = createBrowserRouter([
       },
       {
         path: 'tentang-kami',
-        element: <ComingSoonPage />,
+        element: <TentangKamiPage />,
       },
       {
         path: 'halaman',
