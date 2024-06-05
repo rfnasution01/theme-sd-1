@@ -42,3 +42,13 @@ export type SliderType = {
   gambar: string
   urutan: number
 }
+
+export type HalamanType = {
+  id: string
+  judul: string
+  seo: string
+  url_gambar: string
+  urutan: string
+  hits: string
+  isi: string
+}
