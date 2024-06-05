@@ -5,7 +5,7 @@ import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { usePathname } from '@/libs/hooks/usePathname'
 import clsx from 'clsx'
-import { MenuType } from '@/libs/types/beranda-type'
+import { BeritaTerbaruType, MenuType } from '@/libs/types/beranda-type'
 import { useGetMenuTopQuery } from '@/store/slices/berandaAPI'
 import Loading from '@/components/Loading'
 import { enumRoute } from '@/libs/enum/enum-route'
@@ -20,6 +20,7 @@ export function RootHeader({
   const { firstPathname } = usePathname()
   // --- Menu Top ---
   const [menuTop, setMenuTop] = useState<MenuType[]>([])
+  const [beritaTerbaru, setBeritaTerbaru] = useState<BeritaTerbaruType[]>([])
   const {
     data: menuTopData,
     isLoading: isLoadingMenuTop,
@@ -29,13 +30,11 @@ export function RootHeader({
   const loading = isLoadingMenuTop || isFetchingMenuTop
 
   useEffect(() => {
-    if (menuTopData?.data) {
+    if (menuTopData) {
       setMenuTop(menuTopData?.data)
+      setBeritaTerbaru(menuTopData?.berita_terbaru)
     }
-  }, [menuTopData?.data])
-
-  const runningText =
-    'Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus maxime facilis ea itaque et quae! Rerum maiores quasi consequatur natus eveniet, quos debitis. Temporibus sint labore ut officia totam dolor.'
+  }, [menuTopData])
 
   const isActivePage = (item: string) => {
     if (item?.toLocaleLowerCase() === firstPathname) {
@@ -53,7 +52,19 @@ export function RootHeader({
       {/* --- Running Text --- */}
       <div className="flex w-3/6 items-center gap-32 phones:flex-1">
         <BeritaUtama />
-        <RunningText>{runningText}</RunningText>
+        <RunningText>
+          <div className="flex gap-32 text-nowrap">
+            {beritaTerbaru?.map((item, idx) => (
+              <Link
+                to={`/berita?page=${item?.seo}&id=${item?.id}}`}
+                className="flex"
+                key={idx}
+              >
+                • {item?.judul}
+              </Link>
+            ))}
+          </div>
+        </RunningText>
       </div>
       {/* --- Navigasi --- */}
       <div className="flex w-2/6 items-center justify-center gap-24 text-[2rem] phones:hidden phones:text-[2.4rem]">
@@ -85,7 +96,7 @@ export function RootHeader({
               }
               target={item?.jenis_menu === enumRoute.URL ? '_blank' : '_self'}
               className={clsx(
-                'text-success-100 font-light hover:cursor-pointer hover:text-success-700',
+                'font-light text-success-100 hover:cursor-pointer hover:text-success-700',
                 {
                   'text-success-700': isActivePage(item?.slug),
                 },

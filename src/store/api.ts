@@ -1,3 +1,4 @@
+import { BeritaTerbaruType } from '@/libs/types/beranda-type'
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
 export type Meta = {
@@ -14,6 +15,7 @@ export type Res<T, M = undefined> = {
   related: T
   meta: Meta
   mapped?: M
+  berita_terbaru?: BeritaTerbaruType[]
 }
 
 const baseURL = import.meta.env.VITE_BASE_URL

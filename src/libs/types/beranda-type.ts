@@ -52,3 +52,9 @@ export type HalamanType = {
   hits: string
   isi: string
 }
+
+export type BeritaTerbaruType = {
+  id: string
+  seo: string
+  judul: string
+}

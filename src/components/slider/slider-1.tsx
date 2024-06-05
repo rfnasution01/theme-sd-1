@@ -1,6 +1,5 @@
 import { SliderType } from '@/libs/types/beranda-type'
 import clsx from 'clsx'
-import { Calendar, Newspaper, ThumbsUp } from 'lucide-react'
 import { useEffect, useState } from 'react'
 
 export function Slider1({
@@ -95,7 +94,7 @@ export function Slider1({
               </span>
             </div>
 
-            <div className="flex flex-shrink flex-col gap-16 p-32">
+            {/* <div className="flex flex-shrink flex-col gap-16 p-32">
               <p className="rounded-lg bg-primary-100 bg-opacity-50 p-16 text-[2rem] font-bold tracking-0.25 text-black">
                 {listImage?.[showIndex]?.judul}
               </p>
@@ -115,7 +114,7 @@ export function Slider1({
                   </div>
                 </div>
               </div>
-            </div>
+            </div> */}
           </div>
 
           {isShadow && (

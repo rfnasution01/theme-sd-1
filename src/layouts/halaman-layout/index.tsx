@@ -1,9 +1,14 @@
 import Loading from '@/components/Loading'
+import { convertSlugToText, convertToSlug } from '@/libs/helpers/format-text'
+import { usePathname } from '@/libs/hooks/usePathname'
 import { HalamanType } from '@/libs/types/beranda-type'
 import { getHalamanSlice } from '@/store/reducer/stateIdHalaman'
 import { useGetHalamanQuery } from '@/store/slices/berandaAPI'
+import clsx from 'clsx'
+import { ChevronRight } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
 
 export default function HalamanLayout() {
   const stateId = useSelector(getHalamanSlice)?.id
@@ -33,8 +38,43 @@ export default function HalamanLayout() {
     }
   }, [data?.data, id])
 
+  const { splittedPath } = usePathname()
+
   return (
-    <div className="h-full w-full">
+    <div className="flex h-full w-full flex-col gap-12">
+      <div className="px-64 phones:px-32">
+        <div className="flex items-center gap-12 bg-primary-100 p-12 text-primary-700">
+          {splittedPath?.map((item, idx) => (
+            <div className="flex items-center gap-12" key={idx}>
+              <Link
+                to={
+                  idx !== splittedPath.length - 1
+                    ? item === ''
+                      ? '/'
+                      : convertToSlug(item)
+                    : ''
+                }
+                className={clsx('text-nowrap hover:text-primary-400', {
+                  'hover:cursor-not-allowed': idx === splittedPath.length - 1,
+                })}
+              >
+                {item === ''
+                  ? 'Dashboard'
+                  : item === 'hasil-ppdb'
+                    ? 'Hasil PPDB'
+                    : convertSlugToText(item)}
+              </Link>
+              <p className="text-nowrap">
+                {idx < splittedPath.length - 1 ? (
+                  <ChevronRight size={16} />
+                ) : (
+                  ''
+                )}
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
       {loading ? (
         <Loading />
       ) : (
