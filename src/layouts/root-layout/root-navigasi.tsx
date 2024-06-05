@@ -8,6 +8,8 @@ import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import Tooltips from '@/components/Tooltip'
 import { ChevronDown } from 'lucide-react'
+import { useDispatch } from 'react-redux'
+import { setStateHalaman } from '@/store/reducer/stateIdHalaman'
 
 export function RootNavigasi() {
   const { firstPathname } = usePathname()
@@ -41,6 +43,8 @@ export function RootNavigasi() {
   const sortedData = [...menuUtama].sort((a, b) => {
     return parseInt(a.urutan) - parseInt(b.urutan)
   })
+
+  const dispatch = useDispatch()
 
   return (
     <div className="flex items-center justify-between gap-32 bg-primary-700 pl-64 text-primary-100">
@@ -120,31 +124,42 @@ export function RootNavigasi() {
                                 : list?.jenis_menu === enumRoute.ROUTE
                                   ? list?.slug
                                   : list?.jenis_menu === enumRoute.HALAMAN
-                                    ? `/halaman?page=${list?.slug}`
+                                    ? `/halaman?page=${list?.slug}&id=${list?.id_konten}`
                                     : list?.jenis_menu === enumRoute.PROGRAM
-                                      ? `/program-details?page=${list?.slug}`
+                                      ? `/program-details?page=${list?.slug}&id=${list?.id_konten}`
                                       : list?.jenis_menu === enumRoute.BERITA
-                                        ? `/berita`
+                                        ? `/berita?page=${list?.slug}&id=${list?.id_konten}`
                                         : list?.jenis_menu === enumRoute.AGENDA
-                                          ? `/agenda`
+                                          ? `/agenda?page=${list?.slug}&id=${list?.id_konten}`
                                           : list?.jenis_menu ===
                                               enumRoute.PENGUMUMAN
-                                            ? `/pengumuman`
+                                            ? `/pengumuman?page=${list?.slug}&id=${list?.id_konten}`
                                             : list?.jenis_menu ===
                                                 enumRoute.PRESTASI
-                                              ? `/prestasi`
+                                              ? `/prestasi?page=${list?.slug}&id=${list?.id_konten}`
                                               : list?.jenis_menu ===
                                                   enumRoute.URL
                                                 ? list?.id_konten
                                                 : list?.slug
                             }
-                            className={clsx(
-                              'text-nowrap hover:cursor-pointer hover:text-primary',
-                              {},
-                            )}
                             key={no}
                           >
-                            {list?.nama_menu}
+                            <div
+                              className={clsx(
+                                'text-nowrap hover:cursor-pointer hover:text-primary-400',
+                                {},
+                              )}
+                              onClick={() => {
+                                dispatch(
+                                  setStateHalaman({
+                                    id: list?.id_konten,
+                                    page: list?.nama_menu,
+                                  }),
+                                )
+                              }}
+                            >
+                              {list?.nama_menu}
+                            </div>
                           </Link>
                         ))}
                       </div>
