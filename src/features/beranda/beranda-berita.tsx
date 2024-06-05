@@ -1,20 +1,34 @@
+import Loading from '@/components/Loading'
+import { BerandaType } from '@/libs/types/beranda-type'
+import { useGetBerandaQuery } from '@/store/slices/berandaAPI'
+import { useEffect, useState } from 'react'
+import { ShowCard } from './berita-card'
+
 export function BerandaBerita() {
+  const [beranda, setBeranda] = useState<BerandaType[]>([])
+  const { data, isFetching, isLoading } = useGetBerandaQuery()
+
+  const loading = isFetching || isLoading
+
+  useEffect(() => {
+    if (data?.data) {
+      setBeranda(data?.data)
+    }
+  }, [data?.data])
+
   return (
-    <div className="grid grid-cols-12 gap-32 px-64 phones:px-32">
-      <div className="col-span-6 phones:col-span-12">
-        <div className="flex flex-col justify-between gap-16">
-          <p className="font-roboto text-[5rem]">Berita Sekolah</p>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi
-            minima aliquid obcaecati nostrum ex asperiores, consequuntur
-            doloribus doloremque sequi ratione ad hic quibusdam! Repellat, sed
-            excepturi ipsam dolorem quam id.
-          </p>
+    <div className="flex flex-col gap-32 px-64 phones:px-32">
+      {loading ? (
+        <Loading />
+      ) : (
+        <div className="flex flex-col gap-32">
+          {beranda?.map((item, idx) => (
+            <div key={idx} className="flex flex-col gap-32">
+              <ShowCard angka={idx} data={item} />{' '}
+            </div>
+          ))}
         </div>
-      </div>
-      <div className="col-span-6 phones:col-span-12">
-        {/* <Slider1 listImage={ListBanner} height="h-[50vh]" /> */}
-      </div>
+      )}
     </div>
   )
 }

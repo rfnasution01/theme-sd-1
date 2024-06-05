@@ -4,6 +4,7 @@ import {
   ComingSoonPage,
   HalamanLayout,
   LoginPage,
+  ProgramLayout,
   RootLayout,
 } from './loadables'
 
@@ -30,7 +31,7 @@ export const router = createBrowserRouter([
       },
       {
         path: 'program-details',
-        element: <ComingSoonPage />,
+        element: <ProgramLayout />,
       },
       {
         path: 'berita',

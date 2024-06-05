@@ -25,6 +25,7 @@ export default function Login() {
             src="/img/logo-md.png"
             alt="Logo"
             className="h-[12rem] w-[12rem]"
+            loading="lazy"
           />
         </div>
         <Form {...form}>
@@ -94,7 +95,7 @@ export default function Login() {
                 type="button"
                 className="flex items-center justify-center gap-12 rounded-lg border border-border py-16 text-[2rem] hover:border-primary-500 phones:text-[2.4rem]"
               >
-                <img src="/svg/google-sm.svg" alt="Google" />
+                <img src="/svg/google-sm.svg" alt="Google" loading="lazy" />
                 Login with Google
               </button>
               <div className="flex flex-col gap-4">

@@ -50,7 +50,12 @@ export function RootNavigasi() {
     <div className="flex items-center justify-between gap-32 bg-primary-700 pl-64 text-primary-100">
       {/* --- Logo --- */}
       <Link to="/" className="flex items-center gap-12">
-        <img src="/img/logo.png" alt="logo" className="h-[5rem] w-[5rem]" />
+        <img
+          src="/img/logo.png"
+          alt="logo"
+          className="h-[5rem] w-[5rem]"
+          loading="lazy"
+        />
         <p className="font-sf-pro uppercase">Sma Negeri 2 balige</p>
       </Link>
       {/* --- Navigasi --- */}
@@ -146,7 +151,7 @@ export function RootNavigasi() {
                           >
                             <div
                               className={clsx(
-                                'text-nowrap hover:cursor-pointer hover:text-primary-400',
+                                'text-nowrap text-primary-100 hover:cursor-pointer hover:text-primary-300',
                                 {},
                               )}
                               onClick={() => {

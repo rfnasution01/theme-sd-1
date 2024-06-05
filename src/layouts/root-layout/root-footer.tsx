@@ -2,7 +2,7 @@ export function RootFooter() {
   return (
     <div className="flex flex-col text-primary-100">
       {/* --- Info --- */}
-      <div className="bg-primary-footer flex w-full gap-32 px-64 py-32 text-primary-100 phones:flex-col phones:items-start phones:gap-64 phones:px-32">
+      <div className="flex w-full gap-32 bg-primary-footer px-64 py-32 text-primary-100 phones:flex-col phones:items-start phones:gap-64 phones:px-32">
         {/* --- Alamat --- */}
         <div className="flex w-1/3 flex-col gap-48 phones:w-full">
           <p className="font-bold">Alamat</p>
@@ -25,10 +25,10 @@ export function RootFooter() {
               </p>
             </div>
             <div className="flex items-center gap-8">
-              <img src="/icon/facebook.svg" alt="facebook" />
-              <img src="/icon/google.svg" alt="google" />
-              <img src="/icon/youtube.svg" alt="youtube" />
-              <img src="/icon/instagram.svg" alt="instagram" />
+              <img src="/icon/facebook.svg" alt="facebook" loading="lazy" />
+              <img src="/icon/google.svg" alt="google" loading="lazy" />
+              <img src="/icon/youtube.svg" alt="youtube" loading="lazy" />
+              <img src="/icon/instagram.svg" alt="instagram" loading="lazy" />
             </div>
           </div>
         </div>
@@ -54,7 +54,7 @@ export function RootFooter() {
         </div>
       </div>
       {/* --- Copyright --- */}
-      <div className="bg-primary-footer w-full">
+      <div className="w-full bg-primary-footer">
         <div className="flex flex-col gap-16 px-64 py-32 phones:text-center">
           <p>
             Copyright &#169; 2024 All rights reserves by{' '}

@@ -1,13 +1,13 @@
-import { SliderType } from '@/libs/types/beranda-type'
+import { BeritaType } from '@/libs/types/beranda-type'
 import clsx from 'clsx'
 import { useEffect, useState } from 'react'
 
-export function Slider1({
+export function Slider2({
   listImage,
   height = 'h-[80vh]',
   isShadow,
 }: {
-  listImage: SliderType[]
+  listImage: BeritaType[]
   height?: string
   isShadow?: boolean
 }) {
@@ -20,7 +20,7 @@ export function Slider1({
       } else {
         setShowIndex(showIndex + 1)
       }
-    }, 10000) // Mengganti gambar setiap 1 detik
+    }, 3000) // Mengganti gambar setiap 5 detik
 
     return () => clearInterval(interval)
   }, [showIndex])
@@ -29,9 +29,9 @@ export function Slider1({
     <div className="flex flex-col gap-y-32">
       <div className={`relative col-span-6 block`}>
         <img
-          src={listImage?.[showIndex]?.gambar}
-          alt={listImage?.[showIndex]?.judul}
-          className={`${height} phones:h-[30vh]" w-full rounded-lg bg-opacity-10 object-cover filter`}
+          src={listImage?.[showIndex]?.photo?.gambar}
+          alt={listImage?.[showIndex]?.photo?.keterangan}
+          className={`phones:h-[30vh] ${height} w-full rounded-lg bg-opacity-10 object-cover filter`}
           style={{}}
           loading="lazy"
         />
@@ -98,28 +98,6 @@ export function Slider1({
                 />
               </span>
             </div>
-
-            {/* <div className="flex flex-shrink flex-col gap-16 p-32">
-              <p className="rounded-lg bg-primary-100 bg-opacity-50 p-16 text-[2rem] font-bold tracking-0.25 text-black">
-                {listImage?.[showIndex]?.judul}
-              </p>
-              <div className="flex items-center justify-between gap-32 phones:hidden">
-                <div className="flex items-center gap-4 rounded-lg bg-primary-100 bg-opacity-50 p-16 text-black">
-                  <Newspaper size={16} />
-                  <p>Berita Sekolah, Agenda</p>
-                </div>
-                <div className="flex items-center gap-16 bg-primary-100 bg-opacity-50 p-16 text-black">
-                  <div className="flex items-center gap-x-8">
-                    <ThumbsUp size={16} />
-                    <p>0 suka</p>
-                  </div>
-                  <div className="flex items-center gap-x-8">
-                    <Calendar size={16} />
-                    <p>20 Maret 2023</p>
-                  </div>
-                </div>
-              </div>
-            </div> */}
           </div>
 
           {isShadow && (

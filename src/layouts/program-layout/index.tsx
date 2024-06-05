@@ -1,12 +1,12 @@
 import { Breadcrumb } from '@/components/Breadcrumb'
 import Loading from '@/components/Loading'
-import { HalamanDetailType } from '@/libs/types/beranda-type'
+import { ProgramDetailType } from '@/libs/types/beranda-type'
 import { getHalamanSlice } from '@/store/reducer/stateIdHalaman'
-import { useGetHalamanDetailQuery } from '@/store/slices/berandaAPI'
+import { useGetProgramDetailQuery } from '@/store/slices/berandaAPI'
 import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 
-export default function HalamanLayout() {
+export default function ProgramLayout() {
   const stateId = useSelector(getHalamanSlice)?.id
 
   useEffect(() => {
@@ -30,9 +30,9 @@ export default function HalamanLayout() {
   const [id, setId] = useState<string>(idParams ?? stateId ?? '')
   const [page, setPage] = useState<string>(pageParams ?? statePage ?? '')
 
-  // --- Halaman Page ---
-  const [halaman, setHalaman] = useState<HalamanDetailType>()
-  const { data, isLoading, isFetching } = useGetHalamanDetailQuery({
+  // --- Program Page ---
+  const [program, setProgram] = useState<ProgramDetailType>()
+  const { data, isLoading, isFetching } = useGetProgramDetailQuery({
     id: id,
   })
 
@@ -40,7 +40,7 @@ export default function HalamanLayout() {
 
   useEffect(() => {
     if (data?.data) {
-      setHalaman(data?.data)
+      setProgram(data?.data)
     }
   }, [data?.data, id])
 
@@ -51,16 +51,17 @@ export default function HalamanLayout() {
         <Loading />
       ) : (
         <div className="flex flex-col gap-32 px-64 phones:p-32">
-          <p className="font-roboto text-[5rem]">{halaman?.judul}</p>
-          <div className="h-[50vh] w-full">
+          <p className="font-roboto text-[5rem]">{program?.judul}</p>
+          <div className="h-[60vh] w-full">
             <img
-              src={halaman?.url_gambar}
-              alt={halaman?.judul}
+              src={program?.photo}
+              alt={program?.judul}
               className="h-full w-full"
               loading="lazy"
+              style={{ objectFit: 'cover', objectPosition: 'center' }}
             />
           </div>
-          <div dangerouslySetInnerHTML={{ __html: halaman?.isi }} />
+          <div dangerouslySetInnerHTML={{ __html: program?.isi_lengkap }} />
         </div>
       )}
     </div>

@@ -1,7 +1,9 @@
 import {
-  HalamanType,
+  BerandaType,
+  HalamanDetailType,
   IdentitasType,
   MenuType,
+  ProgramDetailType,
   SliderType,
 } from '@/libs/types/beranda-type'
 import { Res, api } from '../api'
@@ -32,15 +34,24 @@ export const BerandaEndpoints = api.injectEndpoints({
         method: 'GET',
       }),
     }),
-    getBeranda: builder.query<Res<SliderType[]>, void>({
+    getBeranda: builder.query<Res<BerandaType[]>, void>({
       query: () => ({
-        url: `website/slider`,
+        url: `website/beranda`,
         method: 'GET',
       }),
     }),
-    getHalaman: builder.query<Res<HalamanType>, { id: string }>({
+    getHalamanDetail: builder.query<Res<HalamanDetailType>, { id: string }>({
       query: ({ id }) => ({
         url: `website/halaman`,
+        method: 'GET',
+        params: {
+          id: id,
+        },
+      }),
+    }),
+    getProgramDetail: builder.query<Res<ProgramDetailType>, { id: string }>({
+      query: ({ id }) => ({
+        url: `website/program/detail`,
         method: 'GET',
         params: {
           id: id,
@@ -55,5 +66,7 @@ export const {
   useGetMenuTopQuery,
   useGetMenuUtamaQuery,
   useGetSliderQuery,
-  useGetHalamanQuery,
+  useGetHalamanDetailQuery,
+  useGetBerandaQuery,
+  useGetProgramDetailQuery,
 } = BerandaEndpoints

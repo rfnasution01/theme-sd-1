@@ -43,7 +43,31 @@ export type SliderType = {
   urutan: number
 }
 
-export type HalamanType = {
+export type BerandaType = {
+  kategori: string
+  seo: string
+  keterangan: string
+  urutan: string
+  berita: BeritaType[]
+}
+
+export type BeritaType = {
+  id: string
+  seo: string
+  judul: string
+  kategori: string
+  seo_kategori: string
+  kelompok: string
+  tanggal: string
+  photo: PhotoType
+}
+
+export type PhotoType = {
+  keterangan: string
+  gambar: string
+}
+
+export type HalamanDetailType = {
   id: string
   judul: string
   seo: string
@@ -57,4 +81,14 @@ export type BeritaTerbaruType = {
   id: string
   seo: string
   judul: string
+}
+
+export type ProgramDetailType = {
+  id: string
+  judul: string
+  seo: string
+  icon: string
+  photo: string
+  isi_singkat: string
+  isi_lengkap: string
 }
